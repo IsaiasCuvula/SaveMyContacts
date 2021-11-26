@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F122D961275184DA00CB3FD2 /* ContactItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F122D960275184DA00CB3FD2 /* ContactItemView.swift */; };
 		F1C386B42751047F00142F05 /* SaveMyContactsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C386B32751047F00142F05 /* SaveMyContactsApp.swift */; };
 		F1C386B62751047F00142F05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C386B52751047F00142F05 /* ContentView.swift */; };
 		F1C386B82751048000142F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1C386B72751048000142F05 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F122D960275184DA00CB3FD2 /* ContactItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactItemView.swift; sourceTree = "<group>"; };
 		F1C386B02751047F00142F05 /* SaveMyContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaveMyContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1C386B32751047F00142F05 /* SaveMyContactsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMyContactsApp.swift; sourceTree = "<group>"; };
 		F1C386B52751047F00142F05 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +38,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F122D95B2751847400CB3FD2 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F1C386B32751047F00142F05 /* SaveMyContactsApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F122D95C2751847D00CB3FD2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F122D95F275184AC00CB3FD2 /* Contact */,
+				F122D95D2751848800CB3FD2 /* Home */,
+				F1C386B52751047F00142F05 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F122D95D2751848800CB3FD2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F122D960275184DA00CB3FD2 /* ContactItemView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F122D95F275184AC00CB3FD2 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
 		F1C386A72751047F00142F05 = {
 			isa = PBXGroup;
 			children = (
@@ -55,8 +90,8 @@
 		F1C386B22751047F00142F05 /* SaveMyContacts */ = {
 			isa = PBXGroup;
 			children = (
-				F1C386B32751047F00142F05 /* SaveMyContactsApp.swift */,
-				F1C386B52751047F00142F05 /* ContentView.swift */,
+				F122D95B2751847400CB3FD2 /* App */,
+				F122D95C2751847D00CB3FD2 /* Views */,
 				F1C386B72751048000142F05 /* Assets.xcassets */,
 				F1C386BC2751048000142F05 /* Persistence.swift */,
 				F1C386BE2751048000142F05 /* SaveMyContacts.xcdatamodeld */,
@@ -144,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1C386BD2751048000142F05 /* Persistence.swift in Sources */,
+				F122D961275184DA00CB3FD2 /* ContactItemView.swift in Sources */,
 				F1C386B62751047F00142F05 /* ContentView.swift in Sources */,
 				F1C386B42751047F00142F05 /* SaveMyContactsApp.swift in Sources */,
 				F1C386C02751048000142F05 /* SaveMyContacts.xcdatamodeld in Sources */,
