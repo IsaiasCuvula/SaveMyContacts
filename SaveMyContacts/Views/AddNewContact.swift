@@ -10,6 +10,8 @@ import SwiftUI
 struct AddNewContact: View {
     //MARK: - PROPERTIES
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) var myDismiss
+    @State private var showingAlert = false
     
     @State var name = ""
     @State var email = ""
@@ -41,26 +43,61 @@ struct AddNewContact: View {
     
     //MARK: - BODY
     var body: some View {
-        VStack(alignment: .trailing, spacing: 5) {
-            TextField("Name:" , text: $name)
-                .foregroundColor(.black)
-                .font(.title)
-            TextField("Email:", text: $email)
-                .font(.title)
+        NavigationView{
             
-            Button {
-                addItem()
-               
-            } label: {
+            VStack(alignment: .leading, spacing: 10) {
+                TextField("Name:" , text: $name)
+                    .padding()
+                    .background(Color(UIColor.tertiarySystemFill))
+                    .cornerRadius(12)
+                    .font(.system(size: 24, weight: .light, design: .rounded))
+                    
+                TextField("Email:", text: $email)
+                    .padding()
+                    .background(Color(UIColor.tertiarySystemFill))
+                    .cornerRadius(12)
+                    .font(.system(size: 24, weight: .light, design: .rounded))
+                
+                TextField("Phone:", text: $phone)
+                    .padding()
+                    .background(Color(UIColor.tertiarySystemFill))
+                    .cornerRadius(12)
+                    .font(.system(size: 24, weight: .light, design: .rounded))
+                
+                Button {
+                    if self.name.isEmpty {
+                       showingAlert = true
+                    }else {
+                        addItem()
+                        myDismiss()
+                    }
+                   
+                } label: {
+                    Spacer()
+                    Text("SAVE")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                    Spacer()
+                }.foregroundColor(.blue)
+                    .padding()
+                    .background(Color.yellow)
+                    .cornerRadius(12)
+                
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Invalind Name"), message: Text("Add a valid name!"), dismissButton: .default(Text("OK")))
+                }
+                
                 Spacer()
-                Text("SAVE")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
-                Spacer()
-            }
-        }
-        .padding()
+            }//VSTACK
+            .padding(20)
+            .navigationTitle("New Contact")
+            .navigationBarTitleDisplayMode(.inline)
+        }//:NAVIGATION
+        
+        
     }
 }
+
+//MARK: - PREVIEW
 
 struct AddNewContact_Previews: PreviewProvider {
     static var previews: some View {

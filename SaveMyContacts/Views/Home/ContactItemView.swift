@@ -14,10 +14,8 @@ struct ContactItemView: View {
     
     //MARK: - BODY
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            
-            HStack(spacing: 10) {
-                
+       
+            HStack(spacing: 5 ) {
                 Text(contact.name ?? "Unknown")
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                     .frame(alignment: .leading)
@@ -28,20 +26,10 @@ struct ContactItemView: View {
                 } label: {
                     Image(systemName: "envelope.fill")
                 }
-                
-
             }//:HSTACK
             .padding()
-        }//:VSTACK
-        .cornerRadius(12)  
+            .cornerRadius(12)
+        
     }
 }
-/*
-struct ContactItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        ContactItemView(contact: myContactExample)
-            .previewLayout(.sizeThatFits)
-            .padding()
-    }
-}*/
+

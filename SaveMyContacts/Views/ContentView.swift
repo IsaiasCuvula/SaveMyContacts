@@ -11,9 +11,10 @@ import CoreData
 struct ContentView: View {
     
     //MARK: - PROPERTIES
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var showingAddTodoView: Bool = false
+    @State private var showingAddContactView: Bool = false
     
     //MARK: - FECTHING DATA
 
@@ -27,48 +28,109 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(contacts) { contact in
-                    NavigationLink {
+            ZStack {
+               
+                VStack(alignment: .leading, spacing: 0) {
+                    //MARK: - HEARDER
+                    HStack(alignment: .center ,spacing: 10) {
                         
-                        ContactViewDetail(contact: contact)
+                        //MARK: - EDIT BUTTON
+                        EditButton()
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .padding(.horizontal, 10)
+                            .frame(minWidth: 24, minHeight: 24)
+                            .background(
+                                Capsule().stroke(Color.black, lineWidth: 2))
+                        Spacer()
                         
-                    } label: {
+                        Text("My Contacts")
+                            .font(.system(.title, design: .rounded))
+                            .fontWeight(.heavy)
+                            .padding(.leading, 4)
                         
-                        ContactItemView(contact: contact)
+                        Spacer()
+                       
                         
-                    }
+                        //MARK: - ADD NEW CONTACT
+                       
+                        //MARK: - BUTTON DARK MODE
+                        Button {
+                            isDarkMode.toggle()
+                        } label: {
+                            Image(systemName: isDarkMode ? "moon.circle.fill" : "moon.circle")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .font(.system(.title, design: .rounded))
+                        }
+                        
+                    }//:HSTACK
+                    .padding()
                     
-                }
-                //.onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button {
-                            self.showingAddTodoView.toggle()
+                    //MARK: - BODY
+                    List {
+                        ForEach(contacts) { contact in
+                            NavigationLink {
+                                ContactViewDetail(contact: contact)
+                            } label: {
+                                ContactItemView(contact: contact)
+                            }
+                        }
+                        .onDelete(perform: deleteItems)
+                        
+                    }//:LIST
+                    
+                }//VSTACK
                 
+            }//ZSTACK
+            .navigationBarHidden(true)
+            .overlay(
+               
+                ZStack {
+                    
+                    Circle()
+                        .fill()
+                        .opacity(0.2)
+                        .scaleEffect(1)
+                        .frame(width: 58, height: 58, alignment: .center)
+                    
+                    Circle()
+                        .fill()
+                        .opacity(0.15)
+                        .scaleEffect(1)
+                        .frame(width: 68, height: 68, alignment: .center)
+                    
+                    
+                    Button {
+                        self.showingAddContactView.toggle()
                     } label: {
-                        Image(systemName: "plus")
-                    }.sheet(isPresented: $showingAddTodoView){
-                        AddNewContact()
-                            .environment(\.managedObjectContext, self.viewContext)
-                    }}
-            }
-            //Text("Select an item")
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .background(Circle().fill(Color.black))
+                            .frame(width: 48, height: 48, alignment: .center)
+                    }.padding()
+                        .sheet(isPresented: $showingAddContactView) {
+                            AddNewContact()
+                                .environment(\.managedObjectContext, self.viewContext)
+                        }
+
+                }//:ZSATCK
+                    .padding(.bottom, 15)
+                    .padding(.trailing, 15)
+                , alignment: .bottomTrailing
+                   
+            )
+            
+            
         }//: NAVIGATION
         
     }
     
     //MARK: - FUNCS
    
-   
-    /*
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { //items[$0] }.forEach(viewContext.delete)
+            offsets.map { contacts[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
@@ -77,7 +139,7 @@ struct ContentView: View {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
-    }*/
+    }
 }
 
 //MARK: - PREVIEW
