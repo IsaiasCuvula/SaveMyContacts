@@ -77,9 +77,9 @@ struct AddNewContact: View {
                     Text("SAVE")
                         .font(.system(size: 24, weight: .bold, design: .rounded))
                     Spacer()
-                }.foregroundColor(.blue)
+                }.foregroundColor(.black)
                     .padding()
-                    .background(Color.yellow)
+                    .background(Color.accentColor)
                     .cornerRadius(12)
                 
                 .alert(isPresented: $showingAlert) {
@@ -91,6 +91,7 @@ struct AddNewContact: View {
             .padding(20)
             .navigationTitle("New Contact")
             .navigationBarTitleDisplayMode(.inline)
+            
         }//:NAVIGATION
         
         

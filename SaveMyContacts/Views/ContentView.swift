@@ -29,7 +29,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-               
                 VStack(alignment: .leading, spacing: 0) {
                     //MARK: - HEARDER
                     HStack(alignment: .center ,spacing: 10) {
@@ -41,6 +40,7 @@ struct ContentView: View {
                             .frame(minWidth: 24, minHeight: 24)
                             .background(
                                 Capsule().stroke(Color.black, lineWidth: 2))
+                            .foregroundColor(.black)
                         Spacer()
                         
                         Text("My Contacts")
@@ -50,9 +50,6 @@ struct ContentView: View {
                         
                         Spacer()
                        
-                        
-                        //MARK: - ADD NEW CONTACT
-                       
                         //MARK: - BUTTON DARK MODE
                         Button {
                             isDarkMode.toggle()
@@ -61,6 +58,7 @@ struct ContentView: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .font(.system(.title, design: .rounded))
+                                .foregroundColor(.black)
                         }
                         
                     }//:HSTACK
@@ -73,18 +71,27 @@ struct ContentView: View {
                                 ContactViewDetail(contact: contact)
                             } label: {
                                 ContactItemView(contact: contact)
+                                    
                             }
                         }
                         .onDelete(perform: deleteItems)
                         
                     }//:LIST
-                    
+                    .listStyle(InsetGroupedListStyle())
                 }//VSTACK
                 
+                if contacts.count == 0 {
+                    Text("Contact List Empty")
+                }
+                
             }//ZSTACK
+            .onAppear(perform: {
+                UITableView.appearance().backgroundColor = UIColor.clear
+            })
             .navigationBarHidden(true)
             .overlay(
-               
+                //MARK: - ADD NEW CONTACT
+                
                 ZStack {
                     
                     Circle()
@@ -118,12 +125,11 @@ struct ContentView: View {
                     .padding(.bottom, 15)
                     .padding(.trailing, 15)
                 , alignment: .bottomTrailing
-                   
+                     
             )
-            
+            .background(Color.accentColor.ignoresSafeArea(.all))
             
         }//: NAVIGATION
-        
     }
     
     //MARK: - FUNCS

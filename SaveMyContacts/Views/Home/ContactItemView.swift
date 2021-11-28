@@ -15,20 +15,22 @@ struct ContactItemView: View {
     //MARK: - BODY
     var body: some View {
        
+        ZStack {
             HStack(spacing: 5 ) {
-                Text(contact.name ?? "Unknown")
-                    .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    .frame(alignment: .leading)
-                    
-                Spacer()
-                Button {
-                    //Send email to this user
-                } label: {
-                    Image(systemName: "envelope.fill")
-                }
-            }//:HSTACK
-            .padding()
+                    Text(contact.name ?? "Unknown")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .frame(alignment: .leading)
+                        
+                    Spacer()
+                    Button {
+                        //Send email to this user
+                    } label: {
+                        Image(systemName: "envelope.fill")
+                    }
+                }//:HSTACK
+                .padding()
             .cornerRadius(12)
+        }//:ZSTACK
         
     }
 }

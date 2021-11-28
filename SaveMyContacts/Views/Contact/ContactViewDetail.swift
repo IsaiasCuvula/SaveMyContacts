@@ -31,40 +31,41 @@ struct ContactViewDetail: View {
     
     //MARK: - BODY
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading, spacing: 0) {
-                Divider()
-                //MARK: - TOP
-                VStack(alignment: .leading, spacing: 0) {
-                       myContactsLabel(myLabel: "Full Name")
-                    myContactsValues(txt: contact.name ?? "Unknown")
-                }.padding()
-                
-                //MARK: - CENTER
-                VStack(alignment: .leading, spacing: 0) {
-                       myContactsLabel(myLabel: "Email Address")
-                    HStack(spacing: 0) {
-                        myContactsValues(txt: contact.email ?? "Unknown")
-                        Spacer()
-                        Image(systemName: "envelope.fill")
-                    }.padding(.trailing)
-                }.padding()
-                
-                //MARK: - BOTTOM
-                VStack(alignment: .leading, spacing: 0) {
-                       myContactsLabel(myLabel: "Phone")
-                       myContactsValues(txt: contact.phone ?? "Unknown")
-                }.padding()
-                
-                Spacer()
-                
-            }//: VSTACK
-            .padding(0)
-        }//: ZSTACK
-        
-        
+          
+            ZStack {
+                  VStack(alignment: .leading, spacing: 0) {
+                      Divider()
+                      //MARK: - TOP
+                      VStack(alignment: .leading, spacing: 0) {
+                             myContactsLabel(myLabel: "Full Name")
+                          myContactsValues(txt: contact.name ?? "Unknown")
+                      }.padding()
+                      
+                      //MARK: - CENTER
+                      VStack(alignment: .leading, spacing: 0) {
+                             myContactsLabel(myLabel: "Email Address")
+                          HStack(spacing: 0) {
+                              myContactsValues(txt: contact.email ?? "Unknown")
+                              Spacer()
+                              Image(systemName: "envelope.fill")
+                          }.padding(.trailing)
+                      }.padding()
+                      
+                      //MARK: - BOTTOM
+                      VStack(alignment: .leading, spacing: 0) {
+                             myContactsLabel(myLabel: "Phone")
+                             myContactsValues(txt: contact.phone ?? "Unknown")
+                      }.padding()
+                      
+                      Spacer()
+                      
+                  }//: VSTACK
+                  .padding()
+              }//: ZSTACK
     }
+    
 }
+
 
 
 struct ContactViewDetail_Previews: PreviewProvider {
