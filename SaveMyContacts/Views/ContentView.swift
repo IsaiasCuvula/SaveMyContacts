@@ -9,79 +9,78 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     
-    //MARK: -
+    //MARK: - PROPERTIES
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @State private var showingAddTodoView: Bool = false
+    
+    //MARK: - FECTHING DATA
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \ContactsEntity.name, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var contacts: FetchedResults<ContactsEntity>
+    
+    
+    //MARK: - BODY
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(contacts) { contact in
                     NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        
+                        ContactViewDetail(contact: contact)
+                        
                     } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                        
+                        ContactItemView(contact: contact)
+                        
                     }
+                    
                 }
-                .onDelete(perform: deleteItems)
+                //.onDelete(perform: deleteItems)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+                    Button {
+                            self.showingAddTodoView.toggle()
+                
+                    } label: {
+                        Image(systemName: "plus")
+                    }.sheet(isPresented: $showingAddTodoView){
+                        AddNewContact()
+                            .environment(\.managedObjectContext, self.viewContext)
+                    }}
             }
-            Text("Select an item")
-        }
+            //Text("Select an item")
+        }//: NAVIGATION
+        
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
+    
+    //MARK: - FUNCS
+   
+   
+    /*
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { //items[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
-    }
+    }*/
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+//MARK: - PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

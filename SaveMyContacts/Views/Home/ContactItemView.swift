@@ -9,21 +9,19 @@ import SwiftUI
 
 struct ContactItemView: View {
     //MARK: - PROPERTIES
-    
+    //@Environment(\.managedObjectContext) var viewContext
+    @ObservedObject var  contact: ContactsEntity
     
     //MARK: - BODY
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            Text("Alessandra Oswald")
-                .font(.system(size: 20, weight: .bold, design: .rounded))
-                .frame(alignment: .leading)
-                
             HStack(spacing: 10) {
-                Text("1")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
+                
+                Text(contact.name ?? "Unknown")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .frame(alignment: .leading)
+                    
                 Spacer()
                 Button {
                     //Send email to this user
@@ -33,17 +31,17 @@ struct ContactItemView: View {
                 
 
             }//:HSTACK
+            .padding()
         }//:VSTACK
-        .cornerRadius(12)
-        
-        
+        .cornerRadius(12)  
     }
 }
-
+/*
 struct ContactItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ContactItemView()
+        
+        ContactItemView(contact: myContactExample)
             .previewLayout(.sizeThatFits)
             .padding()
     }
-}
+}*/
